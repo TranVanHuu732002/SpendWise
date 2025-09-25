@@ -1,29 +1,35 @@
-<div class="container mx-auto p-4">
-  <h1 class="text-2xl font-bold mb-4">Giao dịch chi tiêu</h1>
-  <%= link_to 'Thêm giao dịch', new_transaction_path, class: 'bg-blue-500 text-white px-4 py-2 rounded mb-4 inline-block' %>
-  <table class="min-w-full bg-white border">
-    <thead>
-      <tr>
-        <th class="py-2 px-4 border">Ngày</th>
-        <th class="py-2 px-4 border">Số tiền</th>
-        <th class="py-2 px-4 border">Danh mục</th>
-        <th class="py-2 px-4 border">Mô tả</th>
-        <th class="py-2 px-4 border">Hành động</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @transactions.each do |transaction| %>
-        <tr>
-          <td class="py-2 px-4 border"><%= transaction.date %></td>
-          <td class="py-2 px-4 border"><%= number_to_currency(transaction.amount, unit: "₫", precision: 0) %></td>
-          <td class="py-2 px-4 border"><%= transaction.category&.name %></td>
-          <td class="py-2 px-4 border"><%= transaction.description %></td>
-          <td class="py-2 px-4 border">
-            <%= link_to 'Sửa', edit_transaction_path(transaction), class: 'bg-yellow-400 text-white px-2 py-1 rounded mr-2' %>
-            <%= link_to 'Xóa', transaction_path(transaction), method: :delete, data: { confirm: 'Bạn có chắc muốn xóa?' }, class: 'bg-red-500 text-white px-2 py-1 rounded' %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+<div class="min-h-screen bg-gray-100 py-8 flex items-center justify-center">
+  <div class="w-full max-w-5xl bg-white shadow-lg rounded-lg p-8 mx-auto">
+    <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Giao dịch chi tiêu</h1>
+    <div class="flex justify-end mb-4">
+      <%= link_to 'Thêm giao dịch', new_transaction_path, class: 'bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow font-semibold transition' %>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full border rounded-lg overflow-hidden">
+        <thead class="bg-blue-100">
+          <tr>
+            <th class="py-2 px-4 border font-semibold text-gray-700">Ngày</th>
+            <th class="py-2 px-4 border font-semibold text-gray-700">Số tiền</th>
+            <th class="py-2 px-4 border font-semibold text-gray-700">Danh mục</th>
+            <th class="py-2 px-4 border font-semibold text-gray-700">Mô tả</th>
+            <th class="py-2 px-4 border font-semibold text-gray-700">Hành động</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @transactions.each do |transaction| %>
+            <tr class="hover:bg-gray-50">
+              <td class="py-2 px-4 border text-center"><%= transaction.date %></td>
+              <td class="py-2 px-4 border text-right text-green-600 font-bold"><%= number_to_currency(transaction.amount, unit: "₫", precision: 0) %></td>
+              <td class="py-2 px-4 border text-center"><%= transaction.category&.name %></td>
+              <td class="py-2 px-4 border"><%= transaction.description %></td>
+              <td class="py-2 px-4 border text-center">
+                <%= link_to 'Sửa', edit_transaction_path(transaction), class: 'bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded shadow mr-2 transition' %>
+                <%= link_to 'Xóa', transaction_path(transaction), method: :delete, data: { confirm: 'Bạn có chắc muốn xóa?' }, class: 'bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded shadow transition' %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
