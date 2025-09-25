@@ -1,0 +1,21 @@
+<%= form_with(model: transaction, local: true) do |form| %>
+  <div class="mb-4">
+    <%= form.label :date, 'Ngày', class: 'block font-semibold mb-2' %>
+    <%= form.date_field :date, class: 'border rounded px-3 py-2 w-full' %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :amount, 'Số tiền', class: 'block font-semibold mb-2' %>
+    <%= form.number_field :amount, step: 1000, class: 'border rounded px-3 py-2 w-full' %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :category_id, 'Danh mục', class: 'block font-semibold mb-2' %>
+    <%= form.collection_select :category_id, categories, :id, :name, { prompt: 'Chọn danh mục' }, { class: 'border rounded px-3 py-2 w-full' } %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :description, 'Mô tả', class: 'block font-semibold mb-2' %>
+    <%= form.text_field :description, class: 'border rounded px-3 py-2 w-full' %>
+  </div>
+  <div>
+    <%= form.submit class: 'bg-green-500 text-white px-4 py-2 rounded' %>
+  </div>
+<% end %>
