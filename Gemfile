@@ -54,4 +54,7 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
-gem 'tailwindcss-rails'
+gem "tailwindcss-rails"
+gem "groupdate", "~> 6.3"
+
+gem "jsbundling-rails", "~> 1.3"
