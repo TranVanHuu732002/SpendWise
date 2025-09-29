@@ -1,6 +1,7 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import "buttons.css";
 
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files

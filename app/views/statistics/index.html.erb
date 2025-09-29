@@ -8,13 +8,26 @@
           data-statistics-table-category='<%= raw @category_stats.to_json %>'
           data-statistics-table-month='<%= raw @monthly_stats.to_json %>'
           data-statistics-table-year='<%= raw @yearly_stats.to_json %>'>
-          <div class="flex flex-col md:flex-row md:items-center gap-4 mb-4">
-            <label for="tableTypeSelect" class="text-base font-semibold text-blue-700">Chọn loại bảng</label>
-            <select id="tableTypeSelect" data-action="change->statistics-table#changeType" class="px-4 py-2 rounded-lg border border-blue-400 bg-white text-blue-700 font-semibold shadow focus:outline-none focus:ring-2 focus:ring-blue-300 transition">
-              <option value="category">Theo danh mục</option>
-              <option value="month">Theo tháng</option>
-              <option value="year">Theo năm</option>
-            </select>
+          <div class="flex flex-row items-center justify-between gap-4 mb-4">
+            <div class="flex flex-col">
+              <div class="flex flex-row items-center gap-2">
+                <label for="tableTypeSelect" class="text-base font-semibold text-blue-700">Chọn loại bảng</label>
+                <select id="tableTypeSelect" data-action="change->statistics-table#changeType" class="px-4 py-2 rounded-lg border border-blue-400 bg-white text-blue-700 font-semibold shadow focus:outline-none focus:ring-2 focus:ring-blue-300 transition">
+                  <option value="categories">Theo danh mục</option>
+                  <option value="monthly">Theo tháng</option>
+                  <option value="yearly">Theo năm</option>
+                </select>
+              </div>
+            </div>
+            <!-- Export Button -->
+            <div class="flex justify-end mt-4">
+              <form id="exportForm" action="<%= statistics_path(format: :csv) %>" method="get">
+                <input type="hidden" id="exportType" name="type" value="categories" data-statistics-table-target="exportType">
+                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">
+                  Xuất báo cáo
+                </button>
+              </form>
+            </div>
           </div>
           <table id="statisticsTable" class="w-full border rounded-lg overflow-hidden mb-4">
             <thead class="bg-blue-100">
@@ -61,3 +74,8 @@
     </div>
   </div>
 </div>
+
+<% Rails.logger.info "Monthly stats keys: #{raw @monthly_stats.keys.to_json}" %>
+<% Rails.logger.info "Monthly stats values: #{raw @monthly_stats.values.to_json}" %>
+<% Rails.logger.info "Yearly stats keys: #{raw @yearly_stats.keys.to_json}" %>
+<% Rails.logger.info "Yearly stats values: #{raw @yearly_stats.values.to_json}" %>

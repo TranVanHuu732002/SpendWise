@@ -58,3 +58,4 @@ gem "tailwindcss-rails"
 gem "groupdate", "~> 6.3"
 
 gem "jsbundling-rails", "~> 1.3"
+gem "prawn", "~> 2.4"
