@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   resources :transactions, except: [ :show ]
   resources :categories, except: [ :show ]
-  resources :statistics, only: [ :index ]
+  get "statistics", to: "statistics#index", as: :statistics
+  get "statistics/export", to: "statistics#export", as: :export_statistics, defaults: { format: :csv }
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

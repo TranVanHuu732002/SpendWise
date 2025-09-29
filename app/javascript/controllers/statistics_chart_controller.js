@@ -11,10 +11,6 @@ export default class extends Controller {
       this.selectTarget.addEventListener("change", (event) => this.changeType(event))
     }
 
-    document.addEventListener("turbo:frame-load", () => {
-      this.initializeChart()
-    })
-
     document.addEventListener("turbo:load", () => {
       this.initializeChart()
     })
@@ -22,13 +18,35 @@ export default class extends Controller {
 
   initializeChart() {
     if (this.hasCanvasTarget) {
-      this.renderChart()
+      if (!this.canvasTarget.getAttribute("data-statistics-chart-labels")) {
+        this.canvasTarget.setAttribute("data-statistics-chart-labels", this.element.getAttribute("data-statistics-chart-labels"));
+      }
+      if (!this.canvasTarget.getAttribute("data-statistics-chart-data")) {
+        this.canvasTarget.setAttribute("data-statistics-chart-data", this.element.getAttribute("data-statistics-chart-data"));
+      }
+      if (!this.canvasTarget.getAttribute("data-statistics-chart-type")) {
+        this.canvasTarget.setAttribute("data-statistics-chart-type", "bar");
+      }
+      this.renderChart();
+    } else {
+      console.warn("Canvas target is missing. Chart cannot be initialized.");
     }
   }
 
   renderChart() {
-    if (!this.canvasTarget.hasAttribute("data-statistics-chart-labels") || !this.canvasTarget.hasAttribute("data-statistics-chart-data")) {
-      console.warn("Chart data attributes are missing. Skipping chart initialization.")
+  // Lấy dữ liệu từ thuộc tính trên canvas (đã được cập nhật khi đổi loại)
+  const labels = this.canvasTarget.getAttribute("data-statistics-chart-labels")
+  const data = this.canvasTarget.getAttribute("data-statistics-chart-data")
+
+
+    try {
+      JSON.parse(labels)
+      JSON.parse(data)
+    } catch (error) {
+      // Bỏ qua lỗi parse
+    }
+
+    if (!labels || !data) {
       return
     }
 
@@ -37,17 +55,24 @@ export default class extends Controller {
     }
 
     const ctx = this.canvasTarget.getContext("2d")
-    const labels = JSON.parse(this.canvasTarget.getAttribute("data-statistics-chart-labels"))
-    const data = JSON.parse(this.canvasTarget.getAttribute("data-statistics-chart-data"))
     const chartType = this.canvasTarget.getAttribute("data-statistics-chart-type") || "bar"
+
+    // Xác định label phù hợp
+    let datasetLabel = "Số tiền (₫)";
+    const currentType = this.canvasTarget.getAttribute("data-statistics-chart-type") || "bar";
+    if (currentType === "bar") {
+      datasetLabel = "Số tiền";
+    } else {
+      datasetLabel = "Số tiền";
+    }
 
     this.chart = new Chart(ctx, {
       type: chartType,
       data: {
-        labels: labels,
+        labels: JSON.parse(labels),
         datasets: [{
-          label: "Số tiền (₫)",
-          data: data,
+          label: datasetLabel,
+          data: JSON.parse(data),
           backgroundColor: "#3b82f6",
           borderColor: "#2563eb",
           borderWidth: 2,
@@ -63,19 +88,22 @@ export default class extends Controller {
         }
       }
     })
+
   }
 
   changeType(event) {
-    const value = event.target.value
+    const value = event.target.value;
+    const chartType = "bar"; // Luôn là bar chart
+
     if (value === "month") {
-      this.canvasTarget.setAttribute("data-statistics-chart-labels", this.element.getAttribute("data-statistics-chart-labels"))
-      this.canvasTarget.setAttribute("data-statistics-chart-data", this.element.getAttribute("data-statistics-chart-data"))
-      this.canvasTarget.setAttribute("data-statistics-chart-type", "bar")
+      this.canvasTarget.setAttribute("data-statistics-chart-labels", this.element.getAttribute("data-statistics-chart-labels"));
+      this.canvasTarget.setAttribute("data-statistics-chart-data", this.element.getAttribute("data-statistics-chart-data"));
     } else {
-      this.canvasTarget.setAttribute("data-statistics-chart-labels", this.element.getAttribute("data-statistics-chart-year-labels"))
-      this.canvasTarget.setAttribute("data-statistics-chart-data", this.element.getAttribute("data-statistics-chart-year-data"))
-      this.canvasTarget.setAttribute("data-statistics-chart-type", "bar")
+      this.canvasTarget.setAttribute("data-statistics-chart-labels", this.element.getAttribute("data-statistics-chart-year-labels"));
+      this.canvasTarget.setAttribute("data-statistics-chart-data", this.element.getAttribute("data-statistics-chart-year-data"));
     }
-    this.renderChart()
+
+    this.canvasTarget.setAttribute("data-statistics-chart-type", chartType);
+    this.renderChart();
   }
 }
