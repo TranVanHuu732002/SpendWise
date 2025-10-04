@@ -1,22 +1,22 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
-  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">Đặt lại mật khẩu</h2>
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="bg-white shadow rounded p-4 p-sm-5 w-100" style="max-width: 450px;">
+    <h2 class="fs-2 fw-bold mb-4 text-center">Đặt lại mật khẩu</h2>
     <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), local: true) do |f| %>
       <%= f.hidden_field :reset_password_token %>
-      <div class="mb-4">
-        <%= f.label :password, 'Mật khẩu mới', class: 'block font-semibold mb-2' %>
-        <%= f.password_field :password, autocomplete: "new-password", class: 'border rounded px-3 py-2 w-full' %>
+      <div class="mb-3">
+        <%= f.label :password, 'Mật khẩu mới', class: 'form-label fw-semibold' %>
+        <%= f.password_field :password, autocomplete: "new-password", class: 'form-control' %>
       </div>
-      <div class="mb-4">
-        <%= f.label :password_confirmation, 'Xác nhận mật khẩu mới', class: 'block font-semibold mb-2' %>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'border rounded px-3 py-2 w-full' %>
+      <div class="mb-3">
+        <%= f.label :password_confirmation, 'Xác nhận mật khẩu mới', class: 'form-label fw-semibold' %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'form-control' %>
       </div>
       <div>
-        <%= f.submit "Đặt lại mật khẩu", class: 'bg-green-500 text-white px-4 py-2 rounded w-full font-bold' %>
+        <%= f.submit "Đặt lại mật khẩu", class: 'btn btn-success w-100 fw-bold' %>
       </div>
     <% end %>
-    <div class="mt-6 text-center text-sm">
-      <%= link_to "Quay lại đăng nhập", new_session_path(resource_name), class: "text-blue-500 hover:underline" %>
+    <div class="mt-4 text-center">
+      <%= link_to "Quay lại đăng nhập", new_session_path(resource_name), class: "text-primary text-decoration-none" %>
     </div>
   </div>
 </div>

@@ -1,18 +1,18 @@
-<div class="min-h-screen bg-gray-100 py-10 flex items-center justify-center">
-  <div class="w-full max-w-7xl bg-white shadow-xl rounded-2xl p-8">
-    <h1 class="text-3xl font-bold mb-10 text-center text-blue-700">📊 Thống kê chi tiêu</h1>
-    <div class="flex flex-col md:flex-row gap-8 items-start">
+<div class="min-vh-100 bg-light py-5 d-flex align-items-center justify-content-center">
+  <div class="container bg-white shadow rounded p-4">
+    <h1 class="display-5 fw-bold mb-4 text-center text-primary">📊 Thống kê chi tiêu</h1>
+    <div class="row g-4">
       <!-- Left: Bảng thống kê -->
-      <div class="md:w-1/2 w-full">
-        <div class="mb-8" data-controller="statistics-table"
+      <div class="col-md-6">
+        <div class="mb-4" data-controller="statistics-table"
           data-statistics-table-category='<%= raw @category_stats.to_json %>'
           data-statistics-table-month='<%= raw @monthly_stats.to_json %>'
           data-statistics-table-year='<%= raw @yearly_stats.to_json %>'>
-          <div class="flex flex-row items-center justify-between gap-4 mb-4">
-            <div class="flex flex-col">
-              <div class="flex flex-row items-center gap-2">
-                <label for="tableTypeSelect" class="text-base font-semibold text-blue-700">Chọn loại bảng</label>
-                <select id="tableTypeSelect" data-action="change->statistics-table#changeType" class="px-4 py-2 rounded-lg border border-blue-400 bg-white text-blue-700 font-semibold shadow focus:outline-none focus:ring-2 focus:ring-blue-300 transition">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <div class="d-flex align-items-center gap-2">
+                <label for="tableTypeSelect" class="form-label fw-semibold text-primary mb-0">Chọn loại bảng</label>
+                <select id="tableTypeSelect" data-action="change->statistics-table#changeType" class="form-select">
                   <option value="categories">Theo danh mục</option>
                   <option value="monthly">Theo tháng</option>
                   <option value="yearly">Theo năm</option>
@@ -20,27 +20,27 @@
               </div>
             </div>
             <!-- Export Button -->
-            <div class="flex justify-end mt-4">
+            <div>
               <form id="exportForm" action="<%= statistics_path(format: :csv) %>" method="get">
                 <input type="hidden" id="exportType" name="type" value="categories" data-statistics-table-target="exportType">
-                <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-lg shadow hover:bg-blue-600 transition">
+                <button type="submit" class="btn btn-primary">
                   Xuất báo cáo
                 </button>
               </form>
             </div>
           </div>
-          <table id="statisticsTable" class="w-full border rounded-lg overflow-hidden mb-4">
-            <thead class="bg-blue-100">
+          <table id="statisticsTable" class="table table-bordered table-hover mb-4">
+            <thead class="table-light">
               <tr id="tableHeader">
-                <th class="py-2 px-4 border font-semibold text-gray-700">Danh mục</th>
-                <th class="py-2 px-4 border font-semibold text-gray-700">Số tiền</th>
+                <th class="text-center">Danh mục</th>
+                <th class="text-center">Số tiền</th>
               </tr>
             </thead>
             <tbody id="tableBody">
               <% @category_stats.each do |category, amount| %>
-                <tr class="hover:bg-gray-50">
-                  <td class="py-2 px-4 border text-center"><%= category %></td>
-                  <td class="py-2 px-4 border text-right text-green-600 font-bold"><%= number_to_currency(amount, unit: "₫", precision: 0) %></td>
+                <tr>
+                  <td class="text-center"><%= category %></td>
+                  <td class="text-end text-success fw-bold"><%= number_to_currency(amount, unit: "₫", precision: 0) %></td>
                 </tr>
               <% end %>
             </tbody>
@@ -48,21 +48,21 @@
         </div>
       </div>
       <!-- Right: Biểu đồ -->
-      <div class="md:w-1/2 w-full flex flex-col items-center">
-        <div class="w-full flex flex-col items-center" data-controller="statistics-chart"
+      <div class="col-md-6 d-flex flex-column align-items-center">
+        <div class="w-100 d-flex flex-column align-items-center" data-controller="statistics-chart"
           data-statistics-chart-labels='<%= raw @monthly_stats.keys.to_json %>' 
           data-statistics-chart-data='<%= raw @monthly_stats.values.to_json %>' 
           data-statistics-chart-year-labels='<%= raw @yearly_stats.keys.to_json %>'
           data-statistics-chart-year-data='<%= raw @yearly_stats.values.to_json %>'
           data-statistics-chart-type="bar">
-          <div class="mb-4 w-full flex flex-col items-center">
-            <label for="chartTypeSelect" class="mb-2 text-base font-semibold text-blue-700">Chọn loại biểu đồ</label>
-            <select id="chartTypeSelect" data-statistics-chart-target="select" data-action="change->statistics-chart#changeType" class="px-4 py-2 rounded-lg border border-blue-400 bg-white text-blue-700 font-semibold shadow focus:outline-none focus:ring-2 focus:ring-blue-300 transition">
+          <div class="mb-3 w-100 text-center">
+            <label for="chartTypeSelect" class="form-label fw-semibold text-primary">Chọn loại biểu đồ</label>
+            <select id="chartTypeSelect" data-statistics-chart-target="select" data-action="change->statistics-chart#changeType" class="form-select mx-auto" style="max-width: 300px;">
               <option value="month">Biểu đồ theo tháng</option>
               <option value="year">Biểu đồ theo năm</option>
             </select>
           </div>
-          <div class="bg-white rounded-xl shadow-lg p-6 w-full flex justify-center">
+          <div class="bg-white rounded shadow p-3 w-100 d-flex justify-content-center">
             <canvas 
               id="statisticsChart"
               data-statistics-chart-target="canvas"

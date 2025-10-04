@@ -1,28 +1,28 @@
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
-  <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-    <h2 class="text-2xl font-bold mb-6 text-center">Đăng nhập</h2>
+<div class="min-vh-100 d-flex align-items-center justify-content-center bg-light">
+  <div class="bg-white shadow rounded p-4 p-sm-5 w-100" style="max-width: 450px;">
+    <h2 class="fs-2 fw-bold mb-4 text-center">Đăng nhập</h2>
     <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
-      <div class="mb-4">
-        <%= f.label :email, 'Email', class: 'block font-semibold mb-2' %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'border rounded px-3 py-2 w-full' %>
+      <div class="mb-3">
+        <%= f.label :email, 'Email', class: 'form-label fw-semibold' %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
       </div>
-      <div class="mb-4">
-        <%= f.label :password, 'Mật khẩu', class: 'block font-semibold mb-2' %>
-        <%= f.password_field :password, autocomplete: "current-password", class: 'border rounded px-3 py-2 w-full' %>
+      <div class="mb-3">
+        <%= f.label :password, 'Mật khẩu', class: 'form-label fw-semibold' %>
+        <%= f.password_field :password, autocomplete: "current-password", class: 'form-control' %>
       </div>
       <% if devise_mapping.rememberable? %>
-        <div class="mb-4 flex items-center">
-          <%= f.check_box :remember_me, class: 'mr-2' %>
-          <%= f.label :remember_me, 'Ghi nhớ đăng nhập', class: 'font-semibold' %>
+        <div class="mb-3 form-check">
+          <%= f.check_box :remember_me, class: 'form-check-input' %>
+          <%= f.label :remember_me, 'Ghi nhớ đăng nhập', class: 'form-check-label fw-semibold' %>
         </div>
       <% end %>
       <div>
-        <%= f.submit "Đăng nhập", class: 'bg-blue-500 text-white px-4 py-2 rounded w-full font-bold' %>
+        <%= f.submit "Đăng nhập", class: 'btn btn-primary w-100 fw-bold' %>
       </div>
     <% end %>
-    <div class="mt-6 flex justify-between text-sm">
-      <%= link_to "Đăng ký", new_registration_path(resource_name), class: "text-blue-500 hover:underline" %>
-      <%= link_to "Quên mật khẩu?", new_password_path(resource_name), class: "text-blue-500 hover:underline" %>
+    <div class="mt-4 d-flex justify-content-between">
+      <%= link_to "Đăng ký", new_registration_path(resource_name), class: "text-primary text-decoration-none" %>
+      <%= link_to "Quên mật khẩu?", new_password_path(resource_name), class: "text-primary text-decoration-none" %>
     </div>
   </div>
 </div>

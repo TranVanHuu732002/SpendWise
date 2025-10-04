@@ -13,14 +13,16 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application" %>
     <%= javascript_include_tag "application", type: "module", defer: true %>
     <meta name="turbo-cache-control" content="no-cache">
   </head>
 
-  <body class="min-h-screen bg-gray-100">
+  <body class="min-vh-100 bg-light">
     <%= render "layouts/navbar" %>
+    <div class="container mt-2">
+      <%= render "layouts/flash" %>
+    </div>
     <%= yield %>
   </body>
 </html>

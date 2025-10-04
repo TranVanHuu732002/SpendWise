@@ -1,21 +1,21 @@
 <%= form_with(model: transaction, local: true) do |form| %>
-  <div class="mb-4">
-    <%= form.label :date, 'Ngày', class: 'block font-semibold mb-2' %>
-    <%= form.date_field :date, class: 'border rounded px-3 py-2 w-full focus:ring focus:ring-blue-200' %>
+  <div class="mb-3">
+    <%= form.label :date, 'Ngày', class: 'form-label' %>
+    <%= form.date_field :date, class: 'form-control' %>
   </div>
-  <div class="mb-4">
-    <%= form.label :amount, 'Số tiền', class: 'block font-semibold mb-2' %>
-    <%= form.number_field :amount, step: 1000, class: 'border rounded px-3 py-2 w-full focus:ring focus:ring-blue-200' %>
+  <div class="mb-3">
+    <%= form.label :amount, 'Số tiền', class: 'form-label' %>
+    <%= form.number_field :amount, step: 1000, class: 'form-control' %>
   </div>
-  <div class="mb-4">
-    <%= form.label :category_id, 'Danh mục', class: 'block font-semibold mb-2' %>
-    <%= form.collection_select :category_id, categories, :id, :name, { prompt: 'Chọn danh mục' }, { class: 'border rounded px-3 py-2 w-full focus:ring focus:ring-blue-200' } %>
+  <div class="mb-3">
+    <%= form.label :category_id, 'Danh mục', class: 'form-label' %>
+    <%= form.collection_select :category_id, categories, :id, :name, { prompt: 'Chọn danh mục' }, { class: 'form-select' } %>
   </div>
-  <div class="mb-4">
-    <%= form.label :description, 'Mô tả', class: 'block font-semibold mb-2' %>
-    <%= form.text_field :description, class: 'border rounded px-3 py-2 w-full focus:ring focus:ring-blue-200' %>
+  <div class="mb-3">
+    <%= form.label :description, 'Mô tả', class: 'form-label' %>
+    <%= form.text_field :description, class: 'form-control' %>
   </div>
   <div>
-    <%= form.submit class: 'bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded w-full font-bold shadow transition' %>
+    <%= form.submit class: 'btn btn-success w-100' %>
   </div>
 <% end %>
