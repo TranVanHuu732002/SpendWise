@@ -1,0 +1,24 @@
+<!-- Navbar -->
+<nav class="bg-white shadow-md">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <div class="flex-shrink-0">
+        <span class="font-bold text-blue-600 text-2xl">SpendWise</span>
+      </div>
+
+      <!-- Menu Desktop -->
+      <div class="hidden md:flex items-center space-x-8">
+        <%= link_to 'Trang chủ', root_path, class: 'text-gray-700 hover:text-blue-600 transition font-medium' %>
+        <%= link_to 'Giao dịch', transactions_path, class: 'text-gray-700 hover:text-blue-600 transition font-medium' %>
+        <%= link_to 'Danh mục', categories_path, class: 'text-gray-700 hover:text-blue-600 transition font-medium' %>
+        
+        <% if user_signed_in? %>
+          <%= link_to 'Đăng xuất', destroy_user_session_path, method: :delete, class: 'text-gray-700 hover:text-red-600 transition font-medium' %>
+        <% else %>
+          <%= link_to 'Đăng nhập', new_user_session_path, class: 'text-gray-700 hover:text-blue-600 transition font-medium' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>
