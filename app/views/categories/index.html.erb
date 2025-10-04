@@ -1,24 +1,24 @@
-<div class="min-h-screen bg-gray-100 py-8">
-  <div class="w-full max-w-5xl bg-white shadow-lg rounded-lg p-8 mx-auto">
-    <h1 class="text-3xl font-bold mb-6 text-center text-blue-700">Danh mục chi tiêu</h1>
-    <div class="flex justify-end mb-4">
-      <%= link_to 'Thêm danh mục', new_category_path, class: 'bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow font-semibold transition' %>
+<div class="min-vh-100 bg-light py-4">
+  <div class="container bg-white shadow rounded p-4 my-4">
+    <h1 class="display-5 fw-bold mb-4 text-center text-primary">Danh mục chi tiêu</h1>
+    <div class="d-flex justify-content-end mb-3">
+      <%= link_to 'Thêm danh mục', new_category_path, class: 'btn btn-primary' %>
     </div>
-    <div class="overflow-x-auto">
-      <table class="w-full border rounded-lg overflow-hidden">
-        <thead class="bg-blue-100">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
           <tr>
-            <th class="py-2 px-4 border font-semibold text-gray-700">Tên danh mục</th>
-            <th class="py-2 px-4 border font-semibold text-gray-700">Hành động</th>
+            <th class="text-center">Tên danh mục</th>
+            <th class="text-center">Hành động</th>
           </tr>
         </thead>
         <tbody>
           <% @categories.each do |category| %>
-            <tr class="hover:bg-gray-50">
-              <td class="py-2 px-4 border text-center"><%= category.name %></td>
-              <td class="py-2 px-4 border text-center">
-                <%= link_to 'Sửa', edit_category_path(category), class: 'bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-1 rounded shadow mr-2 transition' %>
-                <%= link_to 'Xóa', category_path(category), method: :delete, data: { confirm: 'Bạn có chắc muốn xóa?' }, class: 'bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded shadow transition' %>
+            <tr>
+              <td class="text-center"><%= category.name %></td>
+              <td class="text-center">
+                <%= link_to 'Sửa', edit_category_path(category), class: 'btn btn-warning btn-sm me-1' %>
+                <%= link_to 'Xóa', category_path(category), method: :delete, data: { confirm: 'Bạn có chắc muốn xóa?' }, class: 'btn btn-danger btn-sm' %>
               </td>
             </tr>
           <% end %>
